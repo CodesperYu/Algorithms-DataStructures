@@ -1,0 +1,22 @@
+{
+  "name": "algorithms-datastructures",
+  "version": "1.0.0",
+  "description": "Problems and tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodesperYu/Algorithms-DataStructures.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodesperYu/Algorithms-DataStructures/issues"
+  },
+  "homepage": "https://github.com/CodesperYu/Algorithms-DataStructures#readme",
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
