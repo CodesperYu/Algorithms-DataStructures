@@ -8,26 +8,36 @@
  an item, either pick the complete item, or don’t pick it (0-1 property).
  */
 
-
 knapsack = (capacity, items) => {
-  let iLength = items.length;
-  let memo = Array(iLength+1).fill(0).map(()=> Array(capacity+1).fill(0));
-  for (let y = 0; y <= iLength; y++) {
-    for (let x = 0; x <= capacity; x++) {
-      //if there is no capacity, it'll always be 0, if there are no items, it will also always be zero
-      if (y === 0 || x === 0) {
-        memo[y][x] = 0;
-      //if item is smaller than current capacity, there is potential it can be included in the solution
-      } else if (items[y-1][0] <= x) {
-      //if if we add it, what is the largest remaining value leftover that can be added from the previous, and compare which is larger
-        memo[y][x] = Math.max(items[y-1][1] + memo[y-1][x-items[y-1][0]], memo[y-1][x]);
+	let iLength = items.length;
+
+	//array('length') would create an array with empty slots of that length
+	//.fill('some value') fill each slots with 'some value'
+	//then we do that map(() => would change each 'some value'
+	//in the => Array(capacity+1) would add an array of another size to replace the 'some values'
+
+	let memo = Array(iLength+1).fill(0).map(()=> Array(capacity+1).fill(0));
+	console.log(memo);
+  for (let y = 1; y <= iLength; y++) {
+    for (let x = 1; x <= capacity; x++) {
+
+			//if item is smaller than current capacity, there is potential it can be included in the solution
+			
+      if (items[y-1][0] <= x) {
+
+			//if if we add it, what is the largest remaining value leftover that can be added from the previous, and compare which is larger
+			
+				memo[y][x] = Math.max(items[y-1][1] + memo[y-1][x-items[y-1][0]], memo[y-1][x]);
+				
       } else {
-        //if it's not larger, the largest value is just the value on top of it
-        memo[y][x] = memo[y-1][x];
+
+			//if it's not larger, the largest value is just the value on top of it
+			
+				memo[y][x] = memo[y-1][x];
+				
       }
     }
   }
-  console.log(memo);
   return memo[iLength][capacity];
 };
 
