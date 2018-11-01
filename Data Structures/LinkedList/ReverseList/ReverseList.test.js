@@ -92,23 +92,4 @@ test('no value', () => {
 	expect(arr).toEqual([]); 
 });
 
-// test('no value', () => {
-// 	let space = 7;
-// 	let items = [];
-//   expect(knapsack(space, items)).toBe(0);
-// });
-
-// test('no space', () => {
-// 	let space = 0;
-// 	let items = [[3,7], [3,2], [1,4], [1,5], [3,7]];
-//   expect(knapsack(space, items)).toBe(0);
-// });
-
-// test('same value different weight', () => {
-// 	let space = 7;
-// 	let items = [[3,7], [3,2], [1,4], [1,5], [3,7]];
-//   expect(knapsack(space, items)).toBe(19);
-// });
-
-
 
