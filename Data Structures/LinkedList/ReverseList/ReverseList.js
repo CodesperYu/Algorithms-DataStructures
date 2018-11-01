@@ -1,4 +1,8 @@
 reverseList = (list) => {
+	if (!list.value) {
+		return [];
+	} 
+
 	let point = list;
 	let prev = null;
 	console.log(list);
@@ -12,7 +16,7 @@ reverseList = (list) => {
 		//add next pointer
 		point = save;
 	}
-	
+
 	return prev;
 };
 

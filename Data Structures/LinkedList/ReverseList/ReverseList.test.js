@@ -5,16 +5,10 @@ console.log(reverseList);
 class LinkedList {
 	constructor(value) {
 			this.value = null;
+			this.next = null;
 			this.length = 0;
+			//initiate the class
 			this.addToTail(value);
-	}
-
-	addToHead(value) {
-		const newNode = { value }; // 1
-		newNode.next = this.value;  // 2
-		this.value = newNode;       // 3
-		this.length++;
-		return this;
 	}
 
 	addToTail( value ){
@@ -22,9 +16,9 @@ class LinkedList {
 		node.next = null;
  
     if (this.value === null) {
-      this.value = node;
+			this.value = value;
     } else {
-      let currentNode = this.value;
+      let currentNode = this;
       while (currentNode.next) {
         currentNode = currentNode.next;
       }
@@ -35,18 +29,13 @@ class LinkedList {
 	}
 }
 
-test('basic test', () => {
-	// let space = 7;
-	// let items = [[5,7], [1,1], [3,4], [4,5]];
-	// expect(knapsack(space, items)).toBe(9);
+test('basic test even', () => {
 	let arr = [];
 	const list = new LinkedList(1)
 	.addToTail(2)
 	.addToTail(3)
 	.addToTail(4);
-
-	node = reverseList(list.value);
-	console.log('this is node ', JSON.stringify(node));
+	node = reverseList(list);
 	let counter = 0;
 	while(node) {
 		arr.push(node.value);
@@ -54,22 +43,54 @@ test('basic test', () => {
 		counter++;
 	}
 
-	console.log(arr);
-
 	expect(arr).toEqual([4,3,2,1]); 
 });
 
-// test('two same weight', () => {
-// 	let space = 7;
-// 	let items = [[5,7], [3,1], [3,8], [4,5], [1,2]];
-//   expect(knapsack(space, items)).toBe(13);
-// });
+test('basic test odd', () => {
+	let arr = [];
+	const list = new LinkedList(1)
+	.addToTail(2)
+	.addToTail(3)
+	.addToTail(4)
+	.addToTail(5);
+	node = reverseList(list);
+	let counter = 0;
+	while(node) {
+		arr.push(node.value);
+		node = node.next;
+		counter++;
+	}
 
-// test('same values', () => {
-// 	let space = 6;
-// 	let items = [[1,1], [1,1], [1,1], [1,1], [1,1]];
-//   expect(knapsack(space, items)).toBe(5);
-// });
+	expect(arr).toEqual([5,4,3,2,1]); 
+});
+
+test('one value', () => {
+	let arr = [];
+	const list = new LinkedList(1);
+	node = reverseList(list);
+	let counter = 0;
+	while(node) {
+		arr.push(node.value);
+		node = node.next;
+		counter++;
+	}
+
+	expect(arr).toEqual([1]); 
+});
+
+test('no value', () => {
+	let arr = [];
+	const list = new LinkedList();
+	node = reverseList(list);
+	let counter = 0;
+	while(node.value) {
+		arr.push(node.value);
+		node = node.next;
+		counter++;
+	}
+
+	expect(arr).toEqual([]); 
+});
 
 // test('no value', () => {
 // 	let space = 7;
