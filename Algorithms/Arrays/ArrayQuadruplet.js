@@ -33,11 +33,6 @@ arrayQuadruplet = (arr, sum) => {
 				sum1 = arr[p1];
 				sum2 = arr[p2];
 				let secondSum = sum1 + sum2;
-				// console.log(arr);
-				// console.log(p1, p2);
-				console.log(i, j, p1, p2);
-				// console.log(arr[p1], arr[p2]);
-				// console.log(secondSum);
 				if (secondSum < leftOver){
 					p1++;
 				} else if (secondSum > leftOver) {
