@@ -16,7 +16,7 @@ markIsland = (graph, i, j) => {
 	queue.push([i, j]);
 	while (queue.length > 0) {
 		let coord = queue.pop();
-		console.log(coord);
+		// console.log(coord);
 		let x = coord[0];
 		let y = coord[1];
 		graph[x][y] = -1;
@@ -32,11 +32,19 @@ findIsland = (graph, x, y, maxX, maxY) => {
 	let coords = directions.map((direction) =>{ 
 		return [ x+direction[0] , y+direction[1] ];
 	});
-	console.log(coords);
+	// console.log(coords);
 	let land = coords.filter((coord) => {
 		return coord[0] >= 0 && coord[1] >= 0 && coord[0] < maxX && coord[1] < maxY && graph[coord[0]][coord[1]] === 1; 
 	});
 	return land;
 }
 
+	let graph = [
+		[1,0,0,0,0,1,0,0],
+		[0,0,1,1,1,1,1,0],
+		[1,0,0,0,0,1,0,0],
+		[0,1,1,0,0,0,1,0],
+		[0,1,1,0,0,1,1,0],
+	]
+console.log(CountIslands(graph));
 module.exports = CountIslands;
