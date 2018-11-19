@@ -7,7 +7,6 @@ PuzzleSolver = (puzzle) => {
 			tracker[value] = [i, j];
 		} 
 	}
-	console.log(tracker);
 };
 
 moveToZero = (square, zero, moveMe) => {
