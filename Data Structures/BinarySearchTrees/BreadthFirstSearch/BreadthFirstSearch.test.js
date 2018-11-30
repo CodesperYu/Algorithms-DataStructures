@@ -52,7 +52,8 @@ test('standard test', () => {
 	list.insert('h');
 	list.insert('j');
 	list.insert('i');
-	
-	console.log(list);
-	expect(true).toEqual(true);
+	let answer = ['f', 'd', 'k', 'b', 'e', 'g', 'l', 'a', 'c', 'h', 'j', 'i'];
+
+	let result = breadthFirstSearch(list.root);
+	expect(result).toEqual(answer);
 });
