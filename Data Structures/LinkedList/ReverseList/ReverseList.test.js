@@ -11,8 +11,9 @@ class LinkedList {
 			this.addToTail(value);
 	}
 
-	addToTail( value ){
-		let node = { value }
+	addToTail(value) {
+		let node = {value};
+		console.log(node);
 		node.next = null;
  
     if (this.value === null) {
