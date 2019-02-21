@@ -16,7 +16,7 @@ class Trie {
 		}
 		trie[endHere] = true;
 	}
-	elements(prefix) {
+	valWithPrefix(prefix) {
 		let d = trie;
 		for (let i = 0; i < prefix.length; i++) {
 			let char = prefix[i];
@@ -24,6 +24,18 @@ class Trie {
 				d = d[char];
 			} else {
 				return [];
+			}
+		}
+		return this.matchingWords(d)
+	}
+	matchingWords(d) {
+		result = [];
+		for (let props in d) {
+			console.log(props);
+			if (d[props][endHere]) {
+				let subResult = ['']
+			} else {
+				
 			}
 		}
 	}

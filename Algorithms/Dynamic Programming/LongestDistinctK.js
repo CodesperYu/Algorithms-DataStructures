@@ -1,5 +1,5 @@
-let longSubKDistinct = (str) => {
-	if (str.length < 3) {
+let longSubKDistinct = (str, k) => {
+	if (str.length < k) {
 		return str.length
 	}
 	let prev = [str[0], 1];
@@ -41,4 +41,4 @@ let test1 = 'aabbc';
 let test2 = 'abbcba';
 let test3 = 'aabbbbbddaaassseeeettksdnnnnnnnnnnndddddddddnnnnkasdw' //25
 
-console.log(longSubKDistinct(test3));
+console.log(longSubKDistinct(test1, 3));
