@@ -18,7 +18,7 @@ let longestUniqueSub = (arr) => {
 		}
 		largest = Math.max(size, largest);
 	}
-	return largest;
+	return size;
 }
 
 let test1 = 'abcdefabcdefg' //7
