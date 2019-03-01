@@ -101,3 +101,5 @@ let deserialize = (code) => {
 
 let deSol1 = deserialize(sol1);
 console.log(deSol1);
+
+console.log(2-2*2);

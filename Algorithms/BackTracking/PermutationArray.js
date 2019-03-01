@@ -15,39 +15,6 @@ var permute = function(nums) {
 	return permutations;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // var permute = function(nums) {
 // 	if (nums.length < 2) {
 // 			return [nums]
