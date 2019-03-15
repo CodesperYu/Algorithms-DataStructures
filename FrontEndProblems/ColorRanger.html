@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<style>
+		#color-box{
+			height:100px;
+			width: 200px;
+		}
+		.ranger-color{
+			display: block;
+		}
+	</style>
+	<title>Document</title>
+</head>
+<body>
+	<div id="color-box" style="background-color:rgb(128, 128, 128)"></div>
+	<label>Red</label>
+	<input class="ranger-color ranger-red" min="0" max="255" type='range'/>
+	<label>Green</label>
+	<input class="ranger-color ranger-green" min="0" max="255" type='range'/>
+	<label>Blue</label>
+	<input class="ranger-color ranger-blue" min="0" max="255" type='range'/>
+
+	<script>
+		let colorBox = document.querySelector('#color-box')
+		let rangerRed = document.querySelector('.ranger-red');
+		let rangerGreen = document.querySelector('.ranger-green');
+		let rangerBlue = document.querySelector('.ranger-blue');
+
+		function updateColor(type) {
+			let rangerColor = type;
+			return function(e) {
+				let colorNum = e.target.value;
+				let oldRgb = grabRgb(colorBox.style.backgroundColor);
+				let newRgb = addNewColor(type, e.target.value, oldRgb);
+				colorBox.style.backgroundColor = newRgb;
+			}
+		}
+
+		function grabRgb(rgb) {
+			let arr = rgb.substring(rgb.indexOf('(') + 1, rgb.length - 1).split(', ');
+			return arr;
+		}
+
+		function addNewColor(type, colorNum, rgb) {
+			
+			if (type === 'red') {
+				rgb[0] = colorNum;
+			} else if (type === 'green') {
+				rgb[1] = colorNum;
+			} else if (type === 'blue') {
+				rgb[2] = colorNum;
+			}
+			console.log(rgb);
+			return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+		}
+
+		let updateRed = updateColor('red');
+		let updateGreen = updateColor('green');
+		let updateBlue = updateColor('blue');
+
+		rangerRed.addEventListener('change', updateRed);
+		rangerGreen.addEventListener('change', updateGreen);
+		rangerBlue.addEventListener('change', updateBlue);
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+	</head>
+	<body>
+		<input id='search-bar' type='input'/>
+		<ul id='list'>
+		</ul>
+		<script>
+			let searchBar = document.querySelector('#search-bar');
+			let displayList = document.querySelector('#list');
+
+			function debounce(fn, delay) {
+				let timeout;
+				return (...args) => {
+					clearInterval(timeout);
+					timeout = setTimeout(
+						() => fn.apply(this, args)
+					, delay)
+				};
+			}
+
+			function throttle(fn, delay) {
+				let lastTime;
+				return (...args) => {
+					if (!lastTime) {
+						fn.apply(this, args);
+						lastTime = Date.now();
+					} else if (Date.now() - lastTime >= delay) {
+						console.log(Date.now() - lastTime)
+						fn.apply(this, args);
+					} 
+				}
+			}
+
+
+			function handleChange(e) {
+				console.log('calling');
+				let query = e.target.value
+				asyncResults(query, (data) => {
+					let sortedList = sortList(data);
+					let topTen = getTopTen(sortedList);
+					updateList(topTen);
+				});
+			}
+
+			function sortList(ul) {
+				return ul.sort((a,b) => {
+					return b.relevance - a.relevance;
+				});
+			}
+
+			function getTopTen(ol) {
+				if (ol.length >= 10) {
+					return ol.slice(0, 10);
+				}
+				return ol;
+			}
+
+			function updateList(list) {
+				const searchResults = list.map(result => {
+					return `
+						<li>
+							<span>Title: ${result.title}</span>
+							<span>Relevance: ${result.relevance}</span>
+						</li>
+
+					`
+				});
+				displayList.innerHTML = searchResults.join('');
+			}
+
+			let debounceHandleChange = debounce(handleChange, 500);
+			let throttleHandleChange = throttle(handleChange, 2000);
+			searchBar.addEventListener('keyup', throttleHandleChange);
+
+			// test
+			function asyncResults(query, cb) {
+				let results = [
+					{
+						title:'a',
+						relevance: 10
+					},
+					{
+						title:'e',
+						relevance: 6
+					},
+					{
+						title:'j',
+						relevance: 1
+					},
+					{
+						title:'d',
+						relevance: 7
+					},
+					{
+						title:'g',
+						relevance: 4
+					},
+					{
+						title:'c',
+						relevance: 8
+					},
+					{
+						title:'f',
+						relevance: 5
+					},
+					{
+						title:'i',
+						relevance: 2
+					},
+					{
+						title:'h',
+						relevance: 3
+					},
+					{
+						title:'g',
+						relevance: 4
+					},
+					{
+						title:'i',
+						relevance: 2
+					},
+					{
+						title:'b',
+						relevance: 9
+					},
+				]
+				setTimeout(()=> {
+					cb(results);
+				}, 300);
+			}
+
+		</script>
+	</body>
+</html>
