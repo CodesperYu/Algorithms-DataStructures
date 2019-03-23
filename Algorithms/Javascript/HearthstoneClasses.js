@@ -11,13 +11,13 @@ class Player {
   }
 
   playerSummon(card) {
-    this.subtractHandCount();
+    this.subtractHandCount(1);
     this.subtractMana(card.cost);
     card.summon();
   }
 
-  subtractHandCount() {
-    this.hand -= 1;
+  subtractHandCount(num) {
+    this.hand -= num;
   }
 
   subtractMana(cost) {
