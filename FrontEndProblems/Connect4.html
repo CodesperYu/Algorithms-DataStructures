@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<style>
+		table {
+			border-collapse: collapse;
+		}
+		.square {
+			height: 50px;
+			width: 50px;
+			background-color: yellow;
+			border: 1px solid black;
+		}
+		.chip-slot {
+			background-color: white;
+			border-radius: 50%;
+			height: 80%;
+			width: 80%;
+			margin: auto;
+			border: 1px solid grey;
+		}
+		.red .chip-slot {
+			background-color: red !important;
+		}
+		.black .chip-slot {
+			background-color: black !important;
+		}
+	</style>
+	<title>Connect 4</title>
+</head>
+<body>
+	<div id=#connect-4>
+		<h3 id="display"></h3>
+		<table id=#board>
+		</table>
+  </div>
+
+	<script>
+		let board = document.getElementById('#board');
+		let display = document.querySelector('#display');
+
+		let c4Data = {
+			win: false,
+			turn: 'black',
+			board: Array(6).fill('').map(()=>Array(7).fill(''))
+		}
+
+		// initiate board and display
+		function init() {
+			display.innerHTML = `${c4Data.turn}'s turn`;
+			for (let col = 0; col <= 5; col++) {
+				let tr = document.createElement('tr');
+				for (let row = 0; row <= 6; row++) {
+					let td = document.createElement('td');
+					td.classList.add('square');
+					td.setAttribute('column', col);
+					td.setAttribute('row', row);
+					td.addEventListener('click', handleClick);
+					let chipSlot = document.createElement('div');
+					chipSlot.classList.add('chip-slot');
+					chipSlot.classList.add(`row-${row}`);
+					chipSlot.classList.add(`column-${col}`);
+					td.appendChild(chipSlot);
+					tr.appendChild(td);
+				}
+				board.appendChild(tr);
+			}
+		}
+		init();
+
+		// place chip, check win, and updates display
+		function handleClick(e) {
+			let row = this.attributes.row.value;
+			let availableColumn = findAvailableColumn(row);
+			if (availableColumn !== null && !c4Data.win) {
+				placeChip(availableColumn.toString(), row);
+				let win = checkWin(availableColumn, parseInt(row));
+				if (win) {
+					announce(`${c4Data.turn} win!!!`);
+					c4Data.win = true;
+				} else {
+					c4Data.turn = c4Data.turn === 'black' ? 'red' : 'black';
+					announce(`${c4Data.turn}'s turn`, c4Data.turn);
+				}
+			} else {
+				if (!c4Data.win) {
+					announce('Not a valid selection', 'red');
+				}
+			}
+		}
+
+		function announce(text, color) {
+			display.innerHTML = text;
+			display.style.color = color;
+		}
+
+		function placeChip(column, row) {
+			let allRowSlots = document.querySelectorAll(`.row-${row}`);
+			let chipSlot = allRowSlots[column];
+			chipSlot.style.backgroundColor = c4Data.turn;
+			c4Data.board[column][row] = c4Data.turn;
+		}
+
+		// finds the chip drop location column
+		function findAvailableColumn(row) {
+			availableColumn = null;
+			for (let col = 5; col >= 0; col--) {
+				if (!c4Data.board[col][row]) {
+					availableColumn = col;
+					break;
+				}
+			}
+			return availableColumn;
+		}
+
+		function checkWin(column, row) {
+			return checkDiagonalAscending(column, row) ||
+			checkDiagonalDescending(column, row) ||
+			checkHorizontal(column, row) ||
+			checkVertical(column, row);
+		}
+		
+		function checkDiagonalAscending(column, row) {
+			// Ups checks top right, Downs check bottom left
+			let colUp = column - 1;
+			let rowUp = row + 1;
+			let colDown = column + 1;
+			let rowDown = row - 1;
+			let count = 1;
+			while(colUp >= 0 && rowUp < 7) {
+				if (c4Data.board[colUp][rowUp] === c4Data.turn) {
+					count++;
+					colUp--;
+					rowUp++;
+				} else {
+					break;
+				}
+			}
+			while(colDown < 6 && rowDown >= 0) {
+				if (c4Data.board[colDown][rowDown] === c4Data.turn) {
+					count++;
+					colDown++;
+					rowDown--;
+				} else {
+					break;
+				}
+			}
+			return count >= 4;
+		}
+
+		function checkDiagonalDescending(column, row) {
+			// Ups checks top left, Downs check bottom right
+			let colUp = column - 1;
+			let rowUp = row - 1;
+			let colDown = column + 1;
+			let rowDown = row + 1;
+			let count = 1;
+			while(colUp >= 0 && rowUp >= 0) {
+				if (c4Data.board[colUp][rowUp] === c4Data.turn) {
+					count++;
+					colUp--;
+					rowUp--;
+				} else {
+					break;
+				}
+			}
+			while(colDown < 6 && rowDown < 6) {
+				if (c4Data.board[colDown][rowDown] === c4Data.turn) {
+					count++;
+					colDown++;
+					rowDown++;
+				} else {
+					break;
+				}
+			}
+			return count >= 4;
+		}
+
+		function checkHorizontal(column, row) {
+			let rowRight = row + 1;
+			let rowLeft = row - 1;
+			count = 1;
+			while(rowRight < 7) {
+				if (c4Data.board[column][rowRight] === c4Data.turn) {
+					count++;
+					rowRight++;
+				} else {
+					break;
+				}
+			}
+			while(rowLeft >= 0) {
+				if (c4Data.board[column][rowLeft] === c4Data.turn) {
+					count++;
+					rowLeft--;
+				} else {
+					break;
+				}
+			}
+			return count >= 4;
+		}
+
+		function checkVertical(column, row) {
+			let colUp = column - 1;
+			let colDown = column + 1;
+			count = 1;
+			while(colUp >= 0) {
+				if (c4Data.board[colUp][row] === c4Data.turn) {
+					count++;
+					colUp--;
+				} else {
+					break;
+				}
+			}
+			while(colDown < 6) {
+				if (c4Data.board[colDown][row] === c4Data.turn) {
+					count++;
+					colDown++;
+				} else {
+					break;
+				}
+			}
+			return count >= 4;
+		}
+
+	</script>
+</body>
+</html>

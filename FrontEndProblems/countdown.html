@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<div id=”display”>0:00</div>
+	<button id=”start”>start/pause</button>
+	<button id=”reset”>reset</button>
+	<label>mins</label>
+	<input id=”input-minute” type=”number” value=0>
+	<button id=”set-time”>set time</button>
+<script>
+let display = document.querySelector('#display');
+let startPause = document.querySelector('#start-pause');
+let reset = document.querySelector('#reset');
+let inputMinute = document.querySelector('#input-minute');
+let setTime = document.querySelector('#set-time');
+
+setTime.addEventListener('click', handleSetTime);
+startPause.addEventListener('click', handleStartPause);
+reset.addEventListener('click', handleReset);
+
+let data = {
+  currentTime: 0,
+  countdownTimer: null,
+  startOn: false 
+}
+
+function handleSetTime() {
+  if (inputMinute.value && inputMinute.value > 0) {
+    let seconds = minToSeconds(inputMinute);
+    let formattedTime = timeFormatter(seconds);
+    displayTime(formattedTime);
+  }
+}
+
+function minToSeconnds(min) {
+  return min * 60.
+}
+
+function timeFormatter(seconds) {
+  let min = Math.floor(min/60);
+  let sec = seconds % 60;
+  if (sec < 10) {'0' + sec};
+  return `${min}:${sec}`
+}
+
+function displayTime(time) {
+  display.innerText = time;
+}
+</script>
+</body>
+</html>

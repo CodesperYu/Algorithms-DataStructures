@@ -59,7 +59,9 @@
     searchData(searchQuery).then(results => {
       movieListHTML = htmlizeList(results);
       updateList(movieListHTML);
-      cb(movieListHTML);
+      if (cb) {
+        cb(movieListHTML);
+      }
     });
   }
   
