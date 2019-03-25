@@ -17,6 +17,8 @@
 </head>
 <body>
 	<div id="color-box" style="background-color:rgb(128, 128, 128)"></div>
+	<div class="hexcode-container">HexCode: <span class="hexcode"></span></div>
+	<div class="rgb-container">rgb: <span class="rgb"></span></div>
 	<label>Red</label>
 	<input class="ranger-color ranger-red" min="0" max="255" type='range'/>
 	<label>Green</label>
@@ -29,6 +31,8 @@
 		let rangerRed = document.querySelector('.ranger-red');
 		let rangerGreen = document.querySelector('.ranger-green');
 		let rangerBlue = document.querySelector('.ranger-blue');
+		let hexCodeDisplay = document.querySelector('.hexcode');
+		let rgbDisplay = document.querySelector('.rgb');
 
 		function updateColor(type) {
 			let rangerColor = type;
@@ -36,6 +40,9 @@
 				let colorNum = e.target.value;
 				let oldRgb = grabRgb(colorBox.style.backgroundColor);
 				let newRgb = addNewColor(type, e.target.value, oldRgb);
+				let hexCode = rgbToHexCode(grabRgb(newRgb));
+				hexCodeDisplay.innerText = hexCode;
+				rgbDisplay.innerText = hexCodeToRgb(hexCode);
 				colorBox.style.backgroundColor = newRgb;
 			}
 		}
@@ -43,6 +50,43 @@
 		function grabRgb(rgb) {
 			let arr = rgb.substring(rgb.indexOf('(') + 1, rgb.length - 1).split(', ');
 			return arr;
+		}
+
+		function rgbToHexCode(rgb) {
+			let letter = {
+				10: 'a',
+				11: 'b',
+				12: 'c',
+				13: 'd',
+				14: 'e',
+				15: 'f'
+			}
+			let hexCode = rgb.map(colorNum => {
+				let firstDigit = Math.floor(colorNum / 16);
+					if (firstDigit > 9) {
+						firstDigit = letter[firstDigit];
+					}
+					let secondDigit = colorNum % 16
+					if (secondDigit > 9) {
+						secondDigit = letter[secondDigit];
+					}
+					return firstDigit + '' + secondDigit;
+				}).join('');
+			return '#' + hexCode;
+		}
+
+		function hexCodeToRgb(hexCode) {
+			let code = hexCode.slice(1);
+			let arr = [];
+			let val = '';
+			for (let i = 0; i < code.length; i++) {
+				val += code[i];
+				if (val.length === 2) {
+					arr.push(val);
+					val = '';
+				}
+			}
+			return `${parseInt(arr[0],16)}, ${parseInt(arr[1],16)}, ${parseInt(arr[2],16)})`
 		}
 
 		function addNewColor(type, colorNum, rgb) {
@@ -53,7 +97,6 @@
 			} else if (type === 'blue') {
 				rgb[2] = colorNum;
 			}
-			console.log(rgb);
 			return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
 		}
 

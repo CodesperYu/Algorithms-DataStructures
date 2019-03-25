@@ -1,44 +1,41 @@
-let longSubKDistinct = (str, k) => {
+const longSubKDistinct = (str, k) => {
   if (str.length < k) {
-    return str.length
+    return str.length;
   }
-  let prev = [str[0], 1]
-  let curr = null
-  let currLongest = 1
-  let Longest = 1
+  let prev = [str[0], 1];
+  let curr = null;
+  let currLongest = 1;
+  let Longest = 1;
 
   for (let i = 1; i < str.length; i++) {
-    let char = str[i]
+    const char = str[i];
     if (curr === null) {
       if (char === prev[0]) {
-        prev[1]++
-        currLongest++
+        prev[1]++;
+        currLongest++;
       } else {
-        curr = [char, 1]
-        currLongest++
+        curr = [char, 1];
+        currLongest++;
       }
+    } else if (prev[0] === char) {
+      prev[1]++;
+      currLongest++;
+    } else if (curr[0] === char) {
+      curr[1]++;
+      currLongest++;
     } else {
-      if (prev[0] === char) {
-        prev[1]++
-        currLongest++
-      } else if (curr[0] === char) {
-        curr[1]++
-        currLongest++
-      } else {
-        currLongest -= prev[1]
-        prev = curr
-        curr = [char, 1]
-        currLongest++
-      }
+      currLongest -= prev[1];
+      prev = curr;
+      curr = [char, 1];
+      currLongest++;
     }
-    console.log(currLongest)
-    Longest = Math.max(currLongest, Longest)
+    Longest = Math.max(currLongest, Longest);
   }
-  return Longest
-}
+  return Longest;
+};
 
-let test1 = 'aabbc'
-let test2 = 'abbcba'
-let test3 = 'aabbbbbddaaassseeeettksdnnnnnnnnnnndddddddddnnnnkasdw' // 25
+const test1 = 'aabbc';
+const test2 = 'abbcba';
+const test3 = 'aabbbbbddaaassseeeettksdnnnnnnnnnnndddddddddnnnnkasdw'; // 25
 
-console.log(longSubKDistinct(test1, 3))
+console.log(longSubKDistinct(test1, 3));
