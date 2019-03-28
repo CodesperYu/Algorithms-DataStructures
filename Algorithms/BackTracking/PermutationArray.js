@@ -1,19 +1,19 @@
 var permute = function (nums) {
   if (nums.length < 2) {
-    return [nums]
+    return [nums];
   }
-  let permutations = []
+  const permutations = [];
   for (let i = 0; i < nums.length; i++) {
-    let start = [nums[i]]
-    let leftOver = [...nums.slice(0, i), ...nums.slice(i + 1)]
-    let combo = permute(leftOver)
+    const start = [nums[i]];
+    const leftOver = [...nums.slice(0, i), ...nums.slice(i + 1)];
+    const combo = permute(leftOver);
     for (let j = 0; j < combo.length; j++) {
-      let permutation = [start, ...combo[j]]
-      permutations.push(permutation)
+      const permutation = [start, ...combo[j]];
+      permutations.push(permutation);
     }
   }
-  return permutations
-}
+  return permutations;
+};
 
 // var permute = function (nums) {
 //   if (nums.length < 2) {
@@ -53,4 +53,4 @@ var permute = function (nums) {
 
 // console.log(permuteString('abc'));
 
-console.log(permute([1, 2, 3]))
+console.log(permute([1, 2, 3]));

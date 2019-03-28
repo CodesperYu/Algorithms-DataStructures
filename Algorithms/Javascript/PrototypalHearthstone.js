@@ -25,7 +25,8 @@ function MageMinions({
   name, cost, summonSpeak, attackSpeak,
 }) {
   console.log({ name, cost });
-  Mage.call(this, { name, cost });
+  // Mage.call(this, { name, cost });
+  Mage.myCall(this, { name, cost });
   this.summonSpreak = summonSpeak;
   this.attackSpeak = attackSpeak;
 }
@@ -41,7 +42,6 @@ MageMinions.prototype.attack = function () {
 
 MageMinions.prototype = Object.create(Mage.prototype);
 MageMinions.prototype.constructor = MageMinions;
-
 
 const sorcerersApprentice = new MageMinions({
   name: 'Sorcerer\'s Apprentice',

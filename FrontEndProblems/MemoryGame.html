@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+      td {
+        height: 100px;
+        width: 100px;
+        border: 1px solid black;
+        font-size: 0px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td class='card'>5</td>
+        <td class='card'>3</td>
+        <td class='card'>1</td>
+        <td class='card'>2</td>
+      </tr>
+      <tr>
+        <td class='card'>8</td>
+        <td class='card'>5</td>
+        <td class='card'>2</td>
+        <td class='card'>1</td>
+      </tr>
+      <tr>
+        <td class='card'>8</td>
+        <td class='card'>7</td>
+        <td class='card'>7</td>
+        <td class='card'>4</td>
+      </tr>
+      <tr>
+        <td class='card'>4</td>
+        <td class='card'>3</td>
+        <td class='card'>6</td>
+        <td class='card'>6</td>
+      </tr>
+    </table>
+    <script>
+      let cards = document.querySelectorAll('.card');
+
+      cards.forEach(card => {
+        card.addEventListener('click', handleCardClick);
+      })
+
+      let data = {
+        firstChoiceValue: null,
+        firstChoiceNode: null
+      }
+
+      //make sure you can't click the same card
+      //check if you're handling first or second click
+      //if there is a pair, keep them both open
+      //if there is a mismatch, close them after a number of seconds
+      //first choice opens and remains open until second card is picked
+      function handleCardClick(e) {
+        data.firstChoiceValue === null ? firstPick(e) : secondPick(e)
+      };
+
+      function firstPick(e) {
+        let cardChoice = e.target.innerText;
+        data.firstChoiceValue = cardChoice;
+        data.firstChoiceNode = e; 
+        e.style.fontSize = '32px';
+      }
+
+      function secondPick(e) {
+        let cardChoice = e.target.innerText;
+        e.style.fontSize = '32px';
+        if (cardChoice === data.firstChoice) {
+          e.removeEventHandler('click', handleCardClick);
+          data.firstChoiceNode.removeEventHandler('click', handleCardClick);
+        } else {
+          setTimeout(function () {
+            e.style.fontSize = '0px';
+            data.firstChoiceNode.style.fontSize = '0px';
+          }, 1000);
+        }
+      }
+    </script>
+  </body>
+</html>
