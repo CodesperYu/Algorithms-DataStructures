@@ -6,7 +6,7 @@
 // Construct the maximum tree by the given array and output the root node of this tree.
 
 
-var constructMaximumBinaryTree = function (nums) {
+const constructMaximumBinaryTree = function (nums) {
   if (!nums.length) return null;
 
   const largest = Math.max(...nums);
