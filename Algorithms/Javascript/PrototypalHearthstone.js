@@ -24,9 +24,7 @@ Mage.prototype.constructor = Mage;
 function MageMinions({
   name, cost, summonSpeak, attackSpeak,
 }) {
-  console.log({ name, cost });
-  // Mage.call(this, { name, cost });
-  Mage.myCall(this, { name, cost });
+  Mage.call(this, { name, cost });
   this.summonSpreak = summonSpeak;
   this.attackSpeak = attackSpeak;
 }
