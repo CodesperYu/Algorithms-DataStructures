@@ -71,12 +71,14 @@
 		}
 		init();
 
+		var throttlePlaceChip = throttle(placeChip, 500);
+
 		// place chip, check win, and updates display
 		function handleClick(e) {
 			let row = this.attributes.row.value;
 			let availableColumn = findAvailableColumn(row);
 			if (availableColumn !== null && !c4Data.win) {
-				placeChip(availableColumn.toString(), row);
+				throttlePlaceChip(availableColumn.toString(), row);
 				let win = checkWin(availableColumn, parseInt(row));
 				if (win) {
 					announce(`${c4Data.turn} win!!!`);
@@ -95,6 +97,16 @@
 		function announce(text, color) {
 			display.innerHTML = text;
 			display.style.color = color;
+		}
+
+		function throttle(func, delay) {
+			let lastTime;
+			return function(...args) {
+				if (!lastTime || Date.now() - lastTime > delay) {
+					func.apply(this, args);
+					lastTime = Date.now();
+				}
+			}
 		}
 
 		function placeChip(column, row) {
