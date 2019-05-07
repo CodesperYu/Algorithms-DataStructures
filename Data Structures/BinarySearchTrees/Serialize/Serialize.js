@@ -1,104 +1,104 @@
 class Node {
-  constructor (value) {
-    this.value = value 
-		this.left = null 
-		this.right = null 
-	}
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
 }
 
 class BinarySearchTree {
-  constructor () {
-    this.root = null 
-	}
+  constructor() {
+    this.root = null;
+  }
 
-  insert (value) {
-    var newNode = new Node(value) 
-		if (this.root === null) {
-      this.root = newNode 
-		} else {
-      this.insertNode(this.root, newNode) 
-		}
+  insert(value) {
+    const newNode = new Node(value);
+    if (this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
   }
 
   // Method to insert a node in a tree
   // it moves over the tree to find the location
   // to insert a node with a given value
-  insertNode (node, newNode) {
+  insertNode(node, newNode) {
     // if the value is less than the node
     // value move left of the tree
     if (newNode.value < node.value) {
       // if left is null insert node here
       if (node.left === null) {
-        node.left = newNode 
-			} else {
+        node.left = newNode;
+      } else {
         // if left is not null recurr until
         // null is found
-        this.insertNode(node.left, newNode)  
-			}
+        this.insertNode(node.left, newNode);
+      }
     } else {
       // if the value is more than the node
       // value move right of the tree
       // if right is null insert node here
       if (node.right === null) {
-        node.right = newNode 
-			} else {
+        node.right = newNode;
+      } else {
         // if right is not null recurr until
         // null is found
-        this.insertNode(node.right, newNode) 
-			}
+        this.insertNode(node.right, newNode);
+      }
     }
-    return this 
-	}
+    return this;
+  }
 }
 
-const list = new BinarySearchTree()
-list.insert(5)
-list.insert(2)
-list.insert(3)
-list.insert(4)
-list.insert(6)
-list.insert(7)
+const list = new BinarySearchTree();
+list.insert(5);
+list.insert(2);
+list.insert(3);
+list.insert(4);
+list.insert(6);
+list.insert(7);
 
-let serialize = (root) => {
-  let stringify = ''
+const serialize = (root) => {
+  let stringify = '';
 
-	function iterate (root) {
+  function iterate(root) {
     if (!root) {
-      stringify += '#'
-      return
-		}
-    stringify += root.value
-		iterate(root.left)
-		iterate(root.right)
-	}
+      stringify += '#';
+      return;
+    }
+    stringify += root.value;
+    iterate(root.left);
+    iterate(root.right);
+  }
 
-  iterate(root)
-	return stringify
-}
+  iterate(root);
+  return stringify;
+};
 
-let sol1 = serialize(list.root)
+const sol1 = serialize(list.root);
 
-console.log(sol1)
-let deserialize = (code) => {
-  let i = 0
+console.log(sol1);
+const deserialize = (code) => {
+  let i = 0;
 
-	function iterateCode () {
+  function iterateCode() {
     if (code[i] === '#') {
-      i++
-			return null
-		}
+      i++;
+      return null;
+    }
 
-    let tree = new Node(code[i])
-		i++
-		tree.left = iterateCode()
-		tree.right = iterateCode()
-		return tree
-	}
+    const tree = new Node(code[i]);
+    i++;
+    tree.left = iterateCode();
+    tree.right = iterateCode();
+    return tree;
+  }
 
-  return iterateCode(code)
-}
+  return iterateCode(code);
+};
 
-let deSol1 = deserialize(sol1)
-console.log(deSol1)
+const deSol1 = deserialize(sol1);
+console.log(deSol1);
 
-console.log(2 - 2 * 2)
+console.log(2 - 2 * 2);
