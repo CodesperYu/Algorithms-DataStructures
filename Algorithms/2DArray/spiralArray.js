@@ -48,46 +48,47 @@ console.log(spiralOrder([[1, 2, 3, 4, 5, 6],
   [13, 14, 15, 16, 17, 18]]));
 
 
-function matrix_spiral(matrix) {
-  const result = [];
-  let firstRow = 0;
-  let firstCol = 0;
-  let lastRow = matrix.length - 1;
-  let lastCol = matrix[0].length - 1;
+// function matrix_spiral(matrix) {
+//   const result = [];
+//   let firstRow = 0;
+//   let firstCol = 0;
+//   let lastRow = matrix.length - 1;
+//   let lastCol = matrix[0].length - 1;
 
-  while (firstRow <= lastRow && firstCol <= lastCol) {
-    // top row
-    for (let col = firstCol; col <= lastCol; col++) {
-      result.push(matrix[firstRow][col]);
-    }
+//   while (firstRow <= lastRow && firstCol <= lastCol) {
+//     // top row
+//     for (let col = firstCol; col <= lastCol; col++) {
+//       result.push(matrix[firstRow][col]);
+//     }
 
-    firstRow++;
+//     firstRow++;
 
-    // last col
-    for (let row = firstRow; row <= lastRow; row++) {
-      result.push(matrix[row][lastCol]);
-    }
+//     // last col
+//     for (let row = firstRow; row <= lastRow; row++) {
+//       result.push(matrix[row][lastCol]);
+//     }
 
-    lastCol--;
+//     lastCol--;
 
 
-    // last row
-    if (lastRow >= firstRow) {
-      for (let col = lastCol; col >= firstCol; col--) {
-        result.push(matrix[lastRow][col]);
-      }
-    }
-    lastRow--;
+//     // last row
+//     if (lastRow >= firstRow) {
+//       for (let col = lastCol; col >= firstCol; col--) {
+//         result.push(matrix[lastRow][col]);
+//       }
+//     }
+//     lastRow--;
 
-    if (lastCol >= firstCol) {
-      // first col
-      for (let row = lastRow; row >= firstRow; row--) {
-        result.push(matrix[row][firstCol]);
-      }
-    }
 
-    firstCol++;
-  }
+//     if (lastCol >= firstCol) {
+//       // first col
+//       for (let row = lastRow; row >= firstRow; row--) {
+//         result.push(matrix[row][firstCol]);
+//       }
+//     }
 
-  return result;
-}
+//     firstCol++;
+//   }
+
+//   return result;
+// }

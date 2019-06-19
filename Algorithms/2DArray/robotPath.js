@@ -1,72 +1,32 @@
 function robotPaths(matrix) {
-  // YOUR WORK HERE
-  return -1;
-}
+  const numOfRows = matrix.length;
+  const numOfCols = matrix[0].length;
 
-
-/*
- *  Matrix Spiral
- *
- *  Given an (MxN) matrix of integers, return an array in spiral order.
- *
- *
- *  Input:  matrix {Integer[][]}
- *  Output: {Integer}
- *
- *
- * Example:
- *  Input:  [[ 1, 2, 3],
- *           [ 4, 5, 6],
- *           [ 7, 8, 9]]
- *
- *  Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
- *
- */
-
-
-// Time Complexity:
-// Auxiliary Space Complexity:
-
-function matrix_spiral(matrix) {
-  const result = [];
-  let firstRow = 0;
-  let firstCol = 0;
-  let lastRow = matrix.length - 1;
-  let lastCol = matrix[0].length - 1;
-
-  while (firstRow <= lastRow && firstCol <= lastCol) {
-    // top row
-    for (let col = firstCol; col <= lastCol; col++) {
-      result.push(matrix[firstRow][col]);
+  function traverse(row, col) {
+    if (row < 0 || col < 0 || row >= numOfRows || col >= numOfCols) {
+      return 0;
     }
 
-    firstRow++;
-
-    // last col
-    for (let row = firstRow; row <= lastRow; row++) {
-      result.push(matrix[row][lastCol]);
+    if (matrix[row][col] === 1) {
+      return 0;
     }
 
-    lastCol--;
-
-
-    // last row
-    if (lastRow >= firstRow) {
-      for (let col = lastCol; col >= firstCol; col--) {
-        result.push(matrix[lastRow][col]);
-      }
-    }
-    lastRow--;
-
-    if (lastCol >= firstCol) {
-      // first col
-      for (let row = lastRow; row >= firstRow; row--) {
-        result.push(matrix[row][firstCol]);
-      }
+    if (row === numOfRows - 1 && col === numOfCols - 1) {
+      return 1;
     }
 
-    firstCol++;
+    // mark coordinate as visited
+    matrix[row][col] = 1;
+
+    const sum = traverse(row + 1, col) + traverse(row, col - 1) + traverse(row - 1, col) + traverse(row, col + 1);
+
+    // backtrack
+    matrix[row][col] = 0;
+
+    return sum;
+
+
   }
 
-  return result;
+  return traverse(0, 0);
 }

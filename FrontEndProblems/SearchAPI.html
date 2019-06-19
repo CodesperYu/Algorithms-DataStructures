@@ -24,6 +24,15 @@
 				};
 			}
 
+			//running a function after a certain time pass, if there's another button click, we reset and wait til the next time
+			function debounce(fn, delay) {
+				let timeout;
+				return (...args) => {
+					clearInterval(timeout);
+					timeout = setTimeout(() => fn.apply(this, args), delay);
+				};
+			}
+
 			function throttle(fn, delay) {
 				let lastTime;
 				return (...args) => {
@@ -34,6 +43,18 @@
 						console.log(Date.now() - lastTime)
 						fn.apply(this, args);
 					} 
+				}
+			}
+
+			function throttle(fn, delay) {
+				let lastTime;
+				return (...args) => {
+					if (!lastTime) {
+						fn.apply(this, args); 
+					} else if (Date.now() - lastTime >= delay) {
+						console.log(Date.now() - lastTime)
+						fn.apply(this, args);
+					}
 				}
 			}
 
